@@ -4,7 +4,7 @@
 #include <vector>
 
 //component class just dump every component in here
-struct modifier
+struct modifier 
 {
 	char _operator;
 	float value;
@@ -31,16 +31,20 @@ public:
 		max_eComponentType //keep at end
 	};
 
-	std::vector<std::pair<componentIdentifier, std::map<int, modifier>>>getVComponentModifierMaps();
+	//assembles and pushes back to vComponentModifierMaps
 	void createNewComponent(componentIdentifier componentIdentifier, 
 							std::map<int, modifier> mapComponentModifier);
+
+	//stores and inits component data
 	void initComponents();
+
+	//combines components
 	std::map<int, float>combineComponents(std::vector<int>componentUIDs);
 
 private: 
 
 	Math math;
-	std::map<int, modifier>mapComponentModifier;
+
 	std::vector<std::pair<componentIdentifier, std::map<int, modifier>>>vComponentModifierMaps;
 
 	//modifier modROF,

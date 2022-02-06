@@ -10,13 +10,9 @@ cComponent::~cComponent()
 
 }
 
-std::vector<std::pair<componentIdentifier, std::map<int, modifier>>> cComponent::getVComponentModifierMaps()
-{
-	return vComponentModifierMaps;
-}
-
 void cComponent::createNewComponent(componentIdentifier _componentIdentifier, std::map<int, modifier> mapComponentModifier)
 {
+	//assemble it first because fuck
 	std::pair<componentIdentifier, std::map<int, modifier>>putinthisshitlol{
 		_componentIdentifier, mapComponentModifier };
 	vComponentModifierMaps.push_back(putinthisshitlol);
@@ -24,16 +20,16 @@ void cComponent::createNewComponent(componentIdentifier _componentIdentifier, st
 
 std::map<int, float> cComponent::combineComponents(std::vector<int> componentUIDs)
 {
-	GunBase::initBaseStats();
-	std::map<int, float> combinedStats = GunBase::getMap();
+	GunBase::initBaseStats(); //basically resets the gun everytime combine components is called
+	std::map<int, float> combinedStats = GunBase::getMap(); 
 
 	for (int i = 0; i < componentUIDs.size(); i++)
 	{
 		for (int iStatsTypes = 0; iStatsTypes < max_eGunStatsTypes; iStatsTypes++)
 		{
-			if (vComponentModifierMaps[componentUIDs[i]].second.count(iStatsTypes))
+			if (vComponentModifierMaps[componentUIDs[i]].second.count(iStatsTypes)) //check if stat modifier exists in component
 			{
-				combinedStats.at(iStatsTypes) = math.fMath(combinedStats.at(iStatsTypes),
+				combinedStats.at(iStatsTypes) = math.fMath(combinedStats.at(iStatsTypes), //sums components stats
 					vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes)._operator,
 					vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes).value);
 			}
@@ -42,7 +38,7 @@ std::map<int, float> cComponent::combineComponents(std::vector<int> componentUID
 	return combinedStats;
 }
 
-void cComponent::initComponents()
+void cComponent::initComponents() //stores and inits component data
 {
 	//{, {, }},
 	//pistol body

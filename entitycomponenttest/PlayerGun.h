@@ -1,6 +1,7 @@
 #pragma once
 #include "Components.h"
 
+//not implemented yet
 class cPlayerGun
 {
 public:
@@ -14,18 +15,6 @@ public:
 	void setCurrentAmmo(int CurrentAmmo);
 
 private:
-	//component modifiable
-	int iProjectilesPerShot;
-	int iMagSize;
-	int iDamage;
-	int iWeakspotMultiplier;
-	int iROF; //rate of fire, in r/min
-
-	float fReloadTime;
-	float fBulletSpread; //lesser accurater, in degrees
-	float fBulletSpreadMultiplier; //as you shoot/move
-
-	//non
 	int iCurrentAmmoInMag;
 	int iCurrentAmmoInTotal;
 	int iMaxAmmo;

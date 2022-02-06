@@ -1,11 +1,29 @@
 #pragma once
-//component class just dump every component in here
+#include "gunBase.h"
+#include "Math.h"
+#include <vector>
 
-class cComponent
+//component class just dump every component in here
+struct modifier
+{
+	char _operator;
+	float value;
+};
+
+struct componentIdentifier
+{
+	int componentUID;
+	int componentType;
+};
+
+class cComponent : public GunBase
 {
 public:
+	cComponent();
+	~cComponent();
+
 	enum eComponentTypes {
-		base,
+		body,
 		barrel,
 		grip,
 		sight,
@@ -13,37 +31,24 @@ public:
 		max_eComponentType //keep at end
 	};
 
-	int getComponentType();
-	int getComponentUID();
+	std::vector<std::pair<componentIdentifier, std::map<int, modifier>>>getVComponentModifierMaps();
+	void createNewComponent(componentIdentifier componentIdentifier, 
+							std::map<int, modifier> mapComponentModifier);
+	void initComponents();
+	std::map<int, float>combineComponents(std::vector<int>componentUIDs);
 
-	float math(float value1, char _operator, float value2)
-	{
-		switch (_operator)
-		{
+private: 
 
-		}
-	}
+	Math math;
+	std::map<int, modifier>mapComponentModifier;
+	std::vector<std::pair<componentIdentifier, std::map<int, modifier>>>vComponentModifierMaps;
 
-	//template <eGunStatsTypes gunStatType>
-	//float modifyGunStat(char _operator, float value) //return end value
-	//{
-	//	switch (gunStatType)
-	//	{
-	//	case projectilesPerShot: //math(getGunROF(), _operator, value); return getGunROF; break;
-	//	}
-	//}
-
-	//modifyGunStat<ROF>('*', 5.f);
-private:
-	int iComponentUID;
-
-	int iROFModifier;
-	int iProjectilesPerShotModifier;
-	int iMagSizeModifier;
-	int iDamageModifier;
-	int iWeakspotMultiplierModifier;
-
-	float fReloadTimeModifier;
-	float fBulletSpreadModifier;
-	float fBulletSpreadMultiplierModifier;
+	//modifier modROF,
+	//		 modProjectilesPerShot,
+	//		 modMagSize,
+	//		 modDamage,
+	//		 modWeakspotMultiplier,
+	//		 modReloadTimeModifier,
+	//		 modBulletSpreadModifier,
+	//		 modBulletSpreadMultiplierModifier;
 };

@@ -1,9 +1,17 @@
 #pragma once
-#include "gunBaseBase.h"
+#include "gunBase.h"
 
 class pistol
 {
+	public:
+		pistol();
+		~pistol();
+
+		std::map<int, float>getBaseStats();
+
 	private:
-	std::map<int, float>mapPistolBaseStats = gunBase.getMap();
-	mapPistolBaseStats.at(GunBase::eGunStatsTypes::ROF) = 10;
+		GunBase gunBase;
+		std::map<int, float>mapPistolBaseStats;
 };
+
+

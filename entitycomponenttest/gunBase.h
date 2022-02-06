@@ -28,7 +28,6 @@ public:
 		{
 			mapBaseStats.emplace(i, 0);
 		}
-		mapBaseStats.emplace(max_eGunStatsTypes, 0);
 		return mapBaseStats;
 	}
 

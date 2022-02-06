@@ -33,11 +33,11 @@ std::map<int, float> cComponent::combineComponents(std::vector<int> componentUID
 		{
 			if (it->first.componentUID == componentUIDs[i])
 			{
-				for (int iStatsTypes = 0; iStatsTypes < vComponentModifierMaps[i].second.size(); iStatsTypes++)
+				for (int iStatsTypes = 0; iStatsTypes < vComponentModifierMaps[componentUIDs[i]].second.size(); iStatsTypes++)
 				{
 					combinedStats.at(iStatsTypes) = math.fMath(combinedStats.at(iStatsTypes),
-						vComponentModifierMaps[i].second.at(iStatsTypes)._operator,
-						vComponentModifierMaps[i].second.at(iStatsTypes).value);
+						vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes)._operator,
+						vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes).value);
 				}
 			}
 		}
@@ -74,9 +74,15 @@ void cComponent::initComponents()
 
 	//light barrel
 	std::map<int, modifier>lightBarrel{
+		{projectilesPerShot, {'+', 0}},
+		{magSize, {'+', 0}},
 		{damage, {'-', 1}},
-		{ROF, {'*', 2}} };
-	createNewComponent({ 2, barrel }, lightBarrel);
+		{weakspotMultiplier, {'+', 0}},
+		{ROF, {'*', 2}},
+		{reloadTime, {'+', 0}},
+		{bulletSpread, {'+', 0}},
+		{bulletSpreadMultiplier, {'+', 0}} };
+	createNewComponent({ 2, body }, lightBarrel);
 
 	//heavy barrel
 	std::map<int, modifier>heavyBarrel{

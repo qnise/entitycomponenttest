@@ -77,14 +77,8 @@ void cComponent::initComponents()
 
 	//light barrel
 	std::map<int, modifier>lightBarrel{
-		{projectilesPerShot, {'+', 0}},
-		{magSize, {'+', 0}},
 		{damage, {'-', 1}},
-		{weakspotMultiplier, {'+', 0}},
-		{ROF, {'*', 2}},
-		{reloadTime, {'+', 0}},
-		{bulletSpread, {'+', 0}},
-		{bulletSpreadMultiplier, {'+', 0}} };
+		{ROF, {'*', 2}} };
 	createNewComponent({ 2, body }, lightBarrel);
 
 	//heavy barrel

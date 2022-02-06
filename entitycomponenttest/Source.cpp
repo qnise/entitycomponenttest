@@ -5,5 +5,5 @@ void main()
 {
 	cComponent CComponent;
 	CComponent.initComponents();
-	std::cout << CComponent.combineComponents({ 1 , 3 }).at(GunBase::eGunStatsTypes::ROF);
+	std::cout << CComponent.combineComponents({ 0 , 2 }).at(GunBase::eGunStatsTypes::ROF);
 }

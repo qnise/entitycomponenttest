@@ -29,19 +29,13 @@ std::map<int, float> cComponent::combineComponents(std::vector<int> componentUID
 
 	for (int i = 0; i < componentUIDs.size(); i++)
 	{
-		for (auto it = vComponentModifierMaps.begin(); it != vComponentModifierMaps.end(); it++)
+		for (int iStatsTypes = 0; iStatsTypes < max_eGunStatsTypes; iStatsTypes++)
 		{
-			if (it->first.componentUID == componentUIDs[i])
+			if (vComponentModifierMaps[componentUIDs[i]].second.count(iStatsTypes))
 			{
-				for (int iStatsTypes = 0; iStatsTypes < max_eGunStatsTypes; iStatsTypes++)
-				{
-					if (vComponentModifierMaps[componentUIDs[i]].second.count(iStatsTypes))
-					{
-						combinedStats.at(iStatsTypes) = math.fMath(combinedStats.at(iStatsTypes),
-							vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes)._operator,
-							vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes).value);
-					}
-				}
+				combinedStats.at(iStatsTypes) = math.fMath(combinedStats.at(iStatsTypes),
+					vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes)._operator,
+					vComponentModifierMaps[componentUIDs[i]].second.at(iStatsTypes).value);
 			}
 		}
 	}

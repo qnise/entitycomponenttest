@@ -38,6 +38,32 @@ std::map<int, float> cComponent::combineComponents(std::vector<int> componentUID
 	return combinedStats;
 }
 
+std::map<int, float> cComponent::combineComponents(std::vector<std::string> componentNames)
+{
+	GunBase::initBaseStats(); //basically resets the gun everytime combine components is called
+	std::map<int, float> combinedStats = GunBase::getMap();
+
+	for (int it = 0; it < componentNames.size(); it++)
+	{
+		for (int it2 = 0; it2 < vComponentModifierMaps.size(); it2++)
+		{
+			if (vComponentModifierMaps.at(it2).first.componentName == componentNames[it])
+			{
+				for (int iStatsTypes = 0; iStatsTypes < max_eGunStatsTypes; iStatsTypes++)
+				{
+					if (vComponentModifierMaps[it2].second.count(iStatsTypes)) //check if stat modifier exists in component
+					{
+						combinedStats.at(iStatsTypes) = math.fMath(combinedStats.at(iStatsTypes), //sums components stats
+							vComponentModifierMaps[it2].second.at(iStatsTypes)._operator,
+							vComponentModifierMaps[it2].second.at(iStatsTypes).value);
+					}
+				}
+			}
+		}
+	}
+	return combinedStats;
+}
+
 void cComponent::initComponents() //stores and inits component data
 {
 	//{, {, }},
@@ -51,39 +77,19 @@ void cComponent::initComponents() //stores and inits component data
 		{reloadTime, {'+', 4}},
 		{bulletSpread, {'+', 5}},
 		{bulletSpreadMultiplier, {'+', 1.1f}} };
-	createNewComponent({ 0, body }, pistolBody);
-
-	//shotgun body
-	std::map<int, modifier>shotgunBody{
-		{projectilesPerShot, {'+', 8}},
-		{magSize, {'+', 2}},
-		{damage, {'+', 2}},
-		{weakspotMultiplier, {'+', 2}},
-		{ROF, {'+', 600}},
-		{reloadTime, {'+', 1}},
-		{bulletSpread, {'+', 10}},
-		{bulletSpreadMultiplier, {'+', 1.5f}} };
-	createNewComponent({ 1, body }, shotgunBody);
+	createNewComponent({ "pistolBody", 0, body }, pistolBody);
 
 	//light barrel
 	std::map<int, modifier>lightBarrel{
 		{damage, {'-', 1}},
 		{ROF, {'*', 2}} };
-	createNewComponent({ 2, body }, lightBarrel);
+	createNewComponent({ "lightBarrel", 1, body }, lightBarrel);
 
 	//heavy barrel
 	std::map<int, modifier>heavyBarrel{
 		{damage, {'+', 1}},
 		{ROF, {'/', 2}} };
-	createNewComponent({ 3, barrel }, heavyBarrel);
-
-	/*
-	//3 - light grip
-	std::map<int, modifier>lightGrip
-
-	//4 - heavy grip
-	std::map<int, modifier>heavyGrip
-	*/
+	createNewComponent({ "heavyBarrel", 2, barrel }, heavyBarrel);
 }
 
 

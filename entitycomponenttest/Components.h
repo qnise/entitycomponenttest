@@ -2,6 +2,7 @@
 #include "gunBase.h"
 #include "Math.h"
 #include <vector>
+#include <string>
 
 //component class just dump every component in here
 struct modifier 
@@ -12,6 +13,7 @@ struct modifier
 
 struct componentIdentifier
 {
+	std::string componentName;
 	int componentUID;
 	int componentType;
 };
@@ -40,6 +42,8 @@ public:
 
 	//combines components
 	std::map<int, float>combineComponents(std::vector<int>componentUIDs);
+
+	std::map<int, float>combineComponents(std::vector<std::string>componentNames);
 
 private: 
 
